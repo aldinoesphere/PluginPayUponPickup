@@ -1,7 +1,7 @@
 {
     "name"              : "PayUponPickup",
     "description"       : "Pay upon pickup payment method",
-    "author"            : "Your name",
+    "author"            : "Aldino Esphere",
     "keywords"          : ["plentymarkets", "payment method", "plugin"],
     "type"              : "payment",
     "namespace"         : "PayUponPickup",
