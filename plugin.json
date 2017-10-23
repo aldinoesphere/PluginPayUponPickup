@@ -1,0 +1,10 @@
+{
+    "name"              : "PayUponPickup",
+    "description"       : "Pay upon pickup payment method",
+    "author"            : "Your name",
+    "keywords"          : ["plentymarkets", "payment method", "plugin"],
+    "type"              : "payment",
+    "namespace"         : "PayUponPickup",
+    "require"           : [],
+    "serviceProvider"   : "PayUponPickup\\Providers\\PayUponPickupServiceProvider"
+}

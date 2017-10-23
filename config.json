@@ -1,0 +1,60 @@
+[
+    {
+        "tab"     : "Settings",
+        "key"     : "name",
+        "label"   : "Name",
+        "type"    : "text",
+        "default" : "Pay upon pickup"
+    },
+    {
+      "tab": "Settings",
+      "key": "infoPage.type",
+      "label": "Information page",
+      "type": "dropdown",
+      "possibleValues": {
+        "0": "None",
+        "1": "External content",
+        "2": "Internal content"
+      },
+      "default": "0"
+    },
+    {
+        "tab"     : "Settings",
+        "key"     : "infoPage.intern",
+        "label"   : "Internal information page",
+        "type"    : "category_select"
+    },
+    {
+        "tab"     : "Settings",
+        "key"     : "infoPage.extern",
+        "label"   : "External information page",
+        "type"    : "text",
+        "default" : ""
+    },
+    {
+        "tab"             : "Settings",
+        "key"             : "logo",
+        "label"           : "Logo",
+        "type"            : "dropdown",
+        "possibleValues"  :
+        {
+            "0" : "None",
+            "1" : "Logo URL"
+        },
+        "default"         : "0"
+    },
+    {
+        "tab"     : "Settings",
+        "key"     : "logo.url",
+        "label"   : "Logo URL",
+        "type"    : "text",
+        "default" : ""
+    },
+    {
+        "tab"     : "Settings",
+        "key"     : "shippingProfileId",
+        "label"   : "Shipping profile ID",
+        "type"    : "text",
+        "default" : ""
+    }
+]
