@@ -33,10 +33,10 @@ class PayUponPickupPaymentMethod extends PaymentMethodService
         /**
          * Check the shipping profile ID. The ID can be entered in the config.json.
          */
-        if( $configRepository->get('PayUponPickup.shippingProfileId') != $basket->shippingProfileId)
-        {
-            $active = false;
-        }
+        // if( $configRepository->get('PayUponPickup.shippingProfileId') != $basket->shippingProfileId)
+        // {
+        //     $active = false;
+        // }
  
         return $active;
     }
