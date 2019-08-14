@@ -1,10 +1,10 @@
 {
-    "name"              : "PayUponPickup",
-    "description"       : "Pay upon pickup payment method",
+    "name"              : "SkrillDevelopment",
+    "description"       : "Skrill Development payment method",
     "author"            : "Aldino Esphere",
     "keywords"          : ["plentymarkets", "payment method", "plugin"],
     "type"              : "payment",
-    "namespace"         : "PayUponPickup",
+    "namespace"         : "SkrillDevelopment",
     "require"           : [],
-    "serviceProvider"   : "PayUponPickup\\Providers\\PayUponPickupServiceProvider"
+    "serviceProvider"   : "SkrillDevelopment\\Providers\\SkrillDevelopmentServiceProvider"
 }
