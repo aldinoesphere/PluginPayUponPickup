@@ -17,7 +17,6 @@ class WltPaymentMethod extends AbstractPaymentMethod
 	const DEFAULT_NAME = 'Skrill Wallet';
 	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
     const INITIALIZE_PAYMENT = true;
-    const FORM_TEMPLATE = 'SkrillDevelopment::PaymentWidget';
 
 	/**
 	 * @var name

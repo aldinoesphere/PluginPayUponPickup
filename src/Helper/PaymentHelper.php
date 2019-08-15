@@ -91,29 +91,29 @@ class PaymentHelper
 
         return self::NO_PAYMENTMETHOD_FOUND;
     }
- 
+
     /**
-     * Load the ID of the payment method for the given plugin key
-     * Return the ID for the payment method
+     * check if the mopId is Skrill mopId.
      *
-     * @return string|int
+     * @param number $mopId
+     * @return bool
      */
-    public function getPaymentMethod()
+    public function isSkrillDevelopmentPaymentMopId($mopId)
     {
-        $paymentMethods = $this->paymentMethodRepository->allForPlugin('skrill');
- 
-        if( !is_null($paymentMethods) )
+        $paymentMethods = $this->paymentMethodRepository->allForPlugin(Plugin::KEY);
+
+        if (!is_null($paymentMethods))
         {
-            foreach($paymentMethods as $paymentMethod)
+            foreach ($paymentMethods as $paymentMethod)
             {
-                if($paymentMethod->paymentKey == 'SKRILL_WLT')
+                if ($paymentMethod->id == $mopId)
                 {
-                    return $paymentMethod->id;
+                    return true;
                 }
             }
         }
- 
-        return 'no_paymentmethod_found';
+
+        return false;
     }
 
     /**
@@ -142,5 +142,34 @@ class PaymentHelper
             FrontendLanguageChanged::class,
             FrontendShippingCountryChanged::class
         ];
+    }
+
+    /**
+     * get domain from webstoreconfig.
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
+        $webstoreConfig = $webstoreHelper->getCurrentWebstoreConfiguration();
+        $domain = $webstoreConfig->domainSsl;
+
+        return $domain;
+    }
+
+    /**
+     * @param string $paymentMethod
+     * @return PaymentMethodContract|null
+     */
+    public function getPaymentMethodInstance(string $paymentMethod)
+    {
+        /** @var PaymentMethodContract $instance */
+        $instance = null;
+
+        if ($paymentMethod) {
+            $instance = pluginApp($paymentMethod);
+        }
+        return $instance;
     }
 }

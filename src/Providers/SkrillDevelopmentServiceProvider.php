@@ -10,9 +10,12 @@ use Plenty\Modules\Basket\Events\Basket\AfterBasketCreate;
 use Plenty\Modules\Basket\Events\Basket\AfterBasketChanged;
 use Plenty\Modules\Basket\Events\BasketItem\AfterBasketItemAdd;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodContainer;
+use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
+
 use SkrillDevelopment\Helper\PaymentHelper;
 use SkrillDevelopment\Methods\SkrillDevelopmentPaymentMethod;
 use SkrillDevelopment\Configs\MethodConfig;
+use SkrillDevelopment\Services\PaymentService;
  
 /**
  * Class SkrillDevelopmentServiceProvider
@@ -32,10 +35,13 @@ class SkrillDevelopmentServiceProvider extends ServiceProvider
      * @param PaymentMethodContainer $payContainer
      * @param Dispatcher $eventDispatcher
      */
-    public function boot( PaymentHelper $paymentHelper,
-                          PaymentMethodContainer $methodContainer,
-                          Dispatcher $eventDispatcher)
-    {
+    public function boot(
+        PaymentHelper $paymentHelper,
+        PaymentMethodContainer $methodContainer,
+        Dispatcher $eventDispatcher,
+        PaymentService $paymentService,
+        PaymentMethodRepositoryContract $paymentMethodService
+    ) {
 
         $paymentHelper->createMopsIfNotExist();
         // Register the Skrill Development payment method in the payment method container
@@ -50,20 +56,29 @@ class SkrillDevelopmentServiceProvider extends ServiceProvider
  
         // Listen for the event that gets the payment method content
         $eventDispatcher->listen(GetPaymentMethodContent::class,
-                function(GetPaymentMethodContent $event) use( $paymentHelper)
+            function(
+                GetPaymentMethodContent $event
+            ) use (
+                $paymentHelper,
+                $paymentMethodService,
+                $paymentService
+            ){
+                $mop = $event->getMop();
+                $paymentMethod = $paymentMethodService->findByPaymentMethodId($mop);
+                if($paymentHelper->isSkrillDevelopmentPaymentMopId($mop))
                 {
-                    // if($event->getMop() == $paymentHelper->getPaymentMethod())
-                    // {
-                       $event->setValue('<h1>Skrill Development<h1>');
-                       $event->setType('htmlContent');
-                    // }
-                });
+                    $return = $paymentService->getPaymentContent('WltPaymentMethod::class', $mop);
+                    $event->setValue($return['value']);
+                    $event->setType($return['type']);
+                }
+            }
+        );
  
         // Listen for the event that executes the payment
         $eventDispatcher->listen(ExecutePayment::class,
            function(ExecutePayment $event) use( $paymentHelper)
            {
-               if($event->getMop() == $paymentHelper->getPaymentMethod())
+               if($paymentHelper->isSkrillDevelopmentPaymentMopId($mop))
                {
                    $event->setValue('<h1>Skrill Development<h1>');
                    $event->setType('continue');

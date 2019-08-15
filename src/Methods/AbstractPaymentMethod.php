@@ -16,7 +16,7 @@ class AbstractPaymentMethod extends PaymentMethodService
 {
     const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_REDIRECT_URL;
     const INITIALIZE_PAYMENT = true;
-    const FORM_TEMPLATE = '';
+    const FORM_TEMPLATE = 'SkrillDevelopment::PaymentWidget';
 
     protected $name = '';
 
